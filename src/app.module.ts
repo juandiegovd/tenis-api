@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RoleGuard } from './role/role.guard';
 import { JwtService } from '@nestjs/jwt';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [UsersModule, MatchesModule,
@@ -18,7 +19,8 @@ import { JwtService } from '@nestjs/jwt';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    AuthModule
+    AuthModule,
+    TournamentsModule
   ],
   providers: [RoleGuard, JwtService],
 })

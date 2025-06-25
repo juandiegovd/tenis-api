@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { CreateUsersDto } from "./dto/create-users.dto";
 import { Role } from "../role/roles";
 
 @Entity()
