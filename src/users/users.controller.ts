@@ -8,6 +8,7 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 @Controller('users')
 export class UsersController{
     constructor(private readonly usersService: UsersService) {}
+    
     @Get()
     @UseGuards(JwtAuthGuard)
     @Roles('admin')
@@ -23,14 +24,11 @@ export class UsersController{
 
     @Put("/:id")
     update(@Param('id') id: number, @Body() body: UpdateUsersDto) {
-        console.log('Received body for update:', body);
-        console.log('Received path parameter id:', id);
         return this.usersService.update(id, body);
     }
 
     @Get("/:id")
     findById(@Param('id') id: number) {
-        console.log('Received query parameter id:', id);
         return this.usersService.findById(id);
     }
 

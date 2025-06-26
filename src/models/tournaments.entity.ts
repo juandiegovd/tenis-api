@@ -1,8 +1,9 @@
-import { User } from "src/users/users.entity";
+import { User } from "src/models/users.entity";
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Audited } from "./audited.entity";
 
 @Entity()
-export class Tournament {
+export class Tournament extends Audited {
     @PrimaryGeneratedColumn()
     id: number; 
     name: string;
@@ -14,10 +15,6 @@ export class Tournament {
     location: string;
     website: string;
     players: User[];
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date;
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-    updatedAt: Date;
     @Column({ default: true })
     isActive: boolean;
 }

@@ -1,8 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "../role/roles";
+import { Role } from "./roles";
+import { Audited } from "./audited.entity";
 
 @Entity()
-export class User {
+export class User extends Audited {
     @PrimaryGeneratedColumn ()
     id: number;
     @Column({ unique: true })
@@ -21,10 +22,6 @@ export class User {
     birthDate?: Date;
     @Column({type: 'enum', enum: Role, default: Role.USER})
     role: Role;
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date;
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-    updatedAt: Date;
     @Column({ default: true })
     isActive: boolean;
 }
