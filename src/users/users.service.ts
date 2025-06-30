@@ -5,12 +5,14 @@ import { Between, Repository } from 'typeorm';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import * as bcrypt from 'bcrypt';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User) 
-        private readonly userRepository: Repository<User>
+        private readonly userRepository: Repository<User>,
+        private readonly notificationService: NotificationsService
     ) {}
     async findAll(startDate?: string, endDate?: string) {
         const where: any = { isActive: true };
@@ -37,6 +39,7 @@ export class UsersService {
         dto.password = bcrypt.hashSync(dto.password, 10);
         const user = this.userRepository.create(dto);
         console.log('Creating user with data:', user);
+        this.notificationService.sendNotification(`New user created: ${user.email}`);
         return this.userRepository.save(user);
     }
 
